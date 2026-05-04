@@ -1,0 +1,10 @@
+.task-bar {
+  position: fixed;
+  width: 100px;
+  height: 100%;
+  z-index: 99999;
+}
+
+.desktop {
+  flex: 1;
+}

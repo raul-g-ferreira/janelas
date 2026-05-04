@@ -1,0 +1,12 @@
+<div class="task-bar-container">
+  <div class="task-bar-actions">
+    <button (click)="windowService.openWindow('MULTIPLE', false)">New</button>
+    <button (click)="windowService.openWindow('UNIQUE', true)">Config</button>
+    <hr>
+  </div>
+  <div class="opened-windows">
+    @for (icon of windowService.icons(); track icon.id) {
+      
+    }
+  </div>
+</div>

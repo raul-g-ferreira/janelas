@@ -1,0 +1,26 @@
+<div class="window-container"
+         [style.left.px]="winData().x"
+         [style.top.px]="winData().y"
+         [style.width.px]="winData().width"
+         [style.height.px]="winData().height"
+         [style.z-index]="winData().zIndex"
+         (mousedown)="bringToFront()"
+         [class]="winData().isUnique ? 'unique' : 'multiple' ">
+
+      <div class="window-header" (mousedown)="startDrag($event)">
+        <span>{{ winData().title }}</span>
+        <div class="window-actions">
+
+          @if (winData().isMaximized) {
+            <button (click)="restore()">RES</button>
+          } @else {
+            <button (click)="maximize()">MAX</button>
+          }
+          <button (click)="close()">X</button>
+        </div>
+      </div>
+
+      <div class="window-content">
+        <ng-content></ng-content>
+      </div>
+    </div>

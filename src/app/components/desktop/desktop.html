@@ -1,0 +1,8 @@
+<div class="desktop">
+
+  @for (wind of windowService.windows(); track wind.id) {
+    @if (wind.isVisible) {
+      <app-os-window [winData]="wind"></app-os-window>
+    }
+  }
+</div>
