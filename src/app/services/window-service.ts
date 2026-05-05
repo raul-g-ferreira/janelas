@@ -131,6 +131,5 @@ export class WindowService {
         previousHeight:w.height,
        } : w
     ))
-
   }
 }

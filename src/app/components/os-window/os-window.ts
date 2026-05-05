@@ -96,7 +96,8 @@ export class OsWindow implements OnInit, OnDestroy{
   }
 
   resize(newWidth: number, newHeight: number) {
-    this.windowService.updateWindowSize(this.winData().id, newWidth, newHeight)
+    if (!this.winData().isMaximized) {
+      this.windowService.updateWindowSize(this.winData().id, newWidth, newHeight)
+    }
   }
-
 }
