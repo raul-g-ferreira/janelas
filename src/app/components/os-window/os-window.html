@@ -2,10 +2,10 @@
          [style.left.px]="winData().x"
          [style.top.px]="winData().y"
          [style.width.px]="winData().width"
-         [style.max-width]="'calc(100% - 5px - ' + winData().x + 'px)'"
+         [style.max-width]="'calc(100% - ' + winData().x + 'px)'"
 
          [style.height.px]="winData().height"
-         [style.max-height]="'calc(100% - 5px - ' + winData().y + 'px)'"
+         [style.max-height]="'calc(100% - ' + winData().y + 'px)'"
          [style.z-index]="winData().zIndex"
          (mousedown)="bringToFront()"
          [class]="winData().isUnique ? 'unique' : 'multiple' ">

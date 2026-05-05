@@ -80,9 +80,9 @@ export class OsWindow implements OnInit, OnDestroy{
     // const desktop = document.querySelector<HTMLElement>('.desktop')
 
     const minX = 100
-    const maxX = window.innerWidth - this.winData().width - 5
+    const maxX = window.innerWidth - this.winData().width
     const minY = 0
-    const maxY = window.innerHeight - this.winData().height - 5
+    const maxY = window.innerHeight - this.winData().height
 
     newX = Math.max(minX, Math.min(maxX, newX))
     newY = Math.max(minY, Math.min(maxY, newY))

@@ -24,9 +24,7 @@ export class WindowService {
       id: crypto.randomUUID(),
       title: title,
       x: 500 + Math.random() * 100,
-      // x: 500 ,
       y: 300 + Math.random() * 100,
-      // y: 300 ,
       width: 800,
       height: 400,
       previousX: 0,
@@ -78,8 +76,8 @@ export class WindowService {
         ...w,
         x: 100,
         y: 0,
-        width: window.innerWidth - 105, // BORDA BORDER
-        height: window.innerHeight - 5,
+        width: window.innerWidth - 100, // BORDA BORDER
+        height: window.innerHeight,
         isMaximized: true
        } : w
     ))
