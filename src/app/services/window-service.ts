@@ -57,6 +57,7 @@ export class WindowService {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {...w, x: newX, y: newY} : w
     ))
+    this.setPreviousStats(id)
   }
 
   updateWindowSize(id: string, newWidth: number, newHeight:number) {
@@ -67,6 +68,7 @@ export class WindowService {
         height: newHeight,
       } : w
     ))
+    this.setPreviousStats(id)
   }
 
   maximizeWindow(id: string) {

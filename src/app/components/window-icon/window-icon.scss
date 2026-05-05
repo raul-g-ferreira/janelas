@@ -1,13 +1,12 @@
 .icon-container {
   box-sizing: border-box;
-  border: solid 1px #000;
+  border: solid 1px #ffffff20;
   border-radius: 8px;
   height: 50px;
   overflow: hidden;
-  background-color: #ffffff6c;
-
+  color: #ccc;
   &:hover {
-    background-color: #ffffffa8;
+    background-color: #ffffff20;
   }
 }
 
