@@ -1,5 +1,5 @@
 import { Desktop } from './../desktop/desktop';
-import { Component, HostListener, inject, input } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WebWindow } from '../../models/web-window';
 import { WindowService } from './../../services/window-service';
 
@@ -9,7 +9,7 @@ import { WindowService } from './../../services/window-service';
   templateUrl: './os-window.html',
   styleUrl: './os-window.scss',
 })
-export class OsWindow {
+export class OsWindow implements OnInit, OnDestroy{
   winData = input.required<WebWindow>()
   windowService = inject(WindowService)
 
@@ -17,8 +17,28 @@ export class OsWindow {
   private dragOffsetX = 0
   private dragOffsetY = 0
 
-  private previousX = 0
-  private previousY = 0
+
+  constructor(
+    private elementRef: ElementRef,
+    private ngZone: NgZone,
+  ) {}
+
+  private resizeObserver!: ResizeObserver;
+
+  ngOnInit(): void {
+    this.resizeObserver = new ResizeObserver(entries => {
+      this.ngZone.run(() => {
+        const entry = entries[0]
+        this.resize(entry.contentRect.width, entry.contentRect.height)
+      })
+    })
+
+    this.resizeObserver.observe(this.elementRef.nativeElement.querySelector('.window-container'))
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver.disconnect()
+  }
 
   bringToFront() {
     this.windowService.focusWindow(this.winData().id)
@@ -30,6 +50,10 @@ export class OsWindow {
 
   maximize() {
     this.windowService.maximizeWindow(this.winData().id)
+  }
+
+  minimize() {
+    this.windowService.minimizeWindow(this.winData().id)
   }
 
   restore() {
@@ -56,18 +80,23 @@ export class OsWindow {
     // const desktop = document.querySelector<HTMLElement>('.desktop')
 
     const minX = 100
-    const maxX = window.innerWidth - this.winData().width - 6
+    const maxX = window.innerWidth - this.winData().width - 5
     const minY = 0
-    const maxY = window.innerHeight - this.winData().height - 6
+    const maxY = window.innerHeight - this.winData().height - 5
 
     newX = Math.max(minX, Math.min(maxX, newX))
     newY = Math.max(minY, Math.min(maxY, newY))
 
-    this.windowService.updateWindowPostion(this.winData().id, newX, newY)
+    this.windowService.updateWindowPosition(this.winData().id, newX, newY)
   }
 
   @HostListener('document:mouseup')
   onMouseUp() {
     this.isDragging = false
   }
+
+  resize(newWidth: number, newHeight: number) {
+    this.windowService.updateWindowSize(this.winData().id, newWidth, newHeight)
+  }
+
 }

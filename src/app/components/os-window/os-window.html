@@ -2,7 +2,10 @@
          [style.left.px]="winData().x"
          [style.top.px]="winData().y"
          [style.width.px]="winData().width"
+         [style.max-width]="'calc(100% - 5px - ' + winData().x + 'px)'"
+
          [style.height.px]="winData().height"
+         [style.max-height]="'calc(100% - 5px - ' + winData().y + 'px)'"
          [style.z-index]="winData().zIndex"
          (mousedown)="bringToFront()"
          [class]="winData().isUnique ? 'unique' : 'multiple' ">
@@ -10,6 +13,7 @@
       <div class="window-header" (mousedown)="startDrag($event)">
         <span>{{ winData().title }}</span>
         <div class="window-actions">
+          <button (click)="minimize()">MIN</button>
 
           @if (winData().isMaximized) {
             <button (click)="restore()">RES</button>

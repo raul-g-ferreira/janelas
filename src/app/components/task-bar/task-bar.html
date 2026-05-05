@@ -6,7 +6,7 @@
   </div>
   <div class="opened-windows">
     @for (icon of windowService.icons(); track icon.id) {
-      
+      <app-window-icon [iconData]="icon"></app-window-icon>
     }
   </div>
 </div>

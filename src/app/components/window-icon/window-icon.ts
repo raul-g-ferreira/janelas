@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { WindowMiniIcon } from '../../models/window-mini-icon';
+import { WindowService } from '../../services/window-service';
 
 @Component({
   selector: 'app-window-icon',
@@ -9,4 +10,5 @@ import { WindowMiniIcon } from '../../models/window-mini-icon';
 })
 export class WindowIcon {
   iconData = input.required<WindowMiniIcon>()
+  windowService = inject(WindowService)
 }

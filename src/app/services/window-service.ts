@@ -12,11 +12,21 @@ export class WindowService {
   private zIndexCounter = 1000
 
   openWindow(title: string, isUnique: boolean) {
+
+    if (isUnique) {
+      const uniqueWindow = this.windows().filter(w => w.isUnique)[0]
+      if (uniqueWindow) {
+        this.restoreWindow(uniqueWindow.id)
+        return
+      }
+    }
     const newWindow = {
       id: crypto.randomUUID(),
       title: title,
       x: 500 + Math.random() * 100,
+      // x: 500 ,
       y: 300 + Math.random() * 100,
+      // y: 300 ,
       width: 800,
       height: 400,
       previousX: 0,
@@ -29,13 +39,6 @@ export class WindowService {
       isMaximized: false
     }
 
-    if (isUnique) {
-      const uniqueWindow = this.windows().filter(w => w.isUnique)[0]
-      if (uniqueWindow) {
-        this.focusWindow(uniqueWindow.id)
-        return
-      }
-    }
 
     this.windows.update(w => [...w, newWindow])
   }
@@ -50,24 +53,31 @@ export class WindowService {
     this.windows.update(wins => wins.filter(w => w.id !== id))
   }
 
-  updateWindowPostion(id: string, newX: number, newY: number) {
+  updateWindowPosition(id: string, newX: number, newY: number) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {...w, x: newX, y: newY} : w
     ))
   }
 
-  maximizeWindow(id: string) {
+  updateWindowSize(id: string, newWidth: number, newHeight:number) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
-        previousX: w.x,
-        previousY: w.y,
-        previousWidth: w.width,
-        previousHeight:w.height,
+        width: newWidth,
+        height: newHeight,
+      } : w
+    ))
+  }
+
+  maximizeWindow(id: string) {
+    this.setPreviousStats(id)
+    this.windows.update(wins => wins.map(w =>
+      w.id === id ? {
+        ...w,
         x: 100,
         y: 0,
-        width: window.innerWidth - 100,
-        height: window.innerHeight,
+        width: window.innerWidth - 105, // BORDA BORDER
+        height: window.innerHeight - 5,
         isMaximized: true
        } : w
     ))
@@ -85,11 +95,12 @@ export class WindowService {
         isVisible: true
       } : w
     ))
+    this.removeIcon(id)
     this.focusWindow(id)
   }
 
   minimizeWindow(id: string) {
-
+    this.setPreviousStats(id)
     const newIcon = {
       id: id
     }
@@ -102,5 +113,22 @@ export class WindowService {
     ))
 
     this.icons.update(ico => [...ico, newIcon] )
+  }
+
+  removeIcon(id: string) {
+    this.icons.update(ico => ico.filter(i => i.id !== id))
+  }
+
+  setPreviousStats(id: string) {
+    this.windows.update(wins => wins.map(w =>
+      w.id === id ? {
+        ...w,
+        previousX: w.x,
+        previousY: w.y,
+        previousWidth: w.width,
+        previousHeight:w.height,
+       } : w
+    ))
+
   }
 }

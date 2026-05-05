@@ -4,4 +4,19 @@
   width: 100%;
   height: 100vh;
   padding: 10px;
+  display: flex;
+flex-direction: column;
+}
+
+.task-bar-actions {
+  position: sticky;
+  top: 0;
+}
+
+.opened-windows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  flex: 1;
 }
