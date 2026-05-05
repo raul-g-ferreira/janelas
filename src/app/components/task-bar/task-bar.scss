@@ -1,16 +1,29 @@
 .task-bar-container {
-  background-color: aqua;
+  background-color: #444;
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
   padding: 10px;
   display: flex;
-flex-direction: column;
+  flex-direction: column;
 }
 
 .task-bar-actions {
   position: sticky;
   top: 0;
+
+}
+
+.task-bar-actions button {
+  background: none;
+  width: 100%;
+  height: 30px;
+  border: none;
+  color: #ccc;
+
+  &:hover {
+    background: #ffffff20;
+  }
 }
 
 .opened-windows {

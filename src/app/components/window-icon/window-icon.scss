@@ -4,7 +4,11 @@
   border-radius: 8px;
   height: 50px;
   overflow: hidden;
-  background-color: #b0fc00;
+  background-color: #ffffff6c;
+
+  &:hover {
+    background-color: #ffffffa8;
+  }
 }
 
 .windowId {
