@@ -6,9 +6,11 @@
   [style.height.px]="winData().height"
   [style.max-height]="'calc(100% - ' + winData().y + 'px)'"
   [style.z-index]="winData().zIndex"
+  [style.resize]="winData().isMaximized ? 'none' : 'both'"
   (mousedown)="bringToFront()"
   [class.unique]="winData().isUnique"
-  [class.offFocus]="!winData().onFocus">
+  [class.offFocus]="!winData().onFocus"
+  >
 
   @if (!winData().onFocus) {
     <div class="window-header">
