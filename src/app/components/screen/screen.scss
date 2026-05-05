@@ -1,5 +1,12 @@
+:host {
+  display: flex;
+  background: #020024;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(34, 34, 128, 1) 35%, rgba(66, 0, 99, 1) 100%);
+}
+
 .task-bar {
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100px;
   height: 100%;
   z-index: 99999;

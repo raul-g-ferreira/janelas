@@ -1,11 +1,12 @@
 .task-bar-container {
-  background-color: #444;
+  background-color: #ffffff17;
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  border-right: solid 1px #cccccc5b;
 }
 
 .task-bar-actions {
