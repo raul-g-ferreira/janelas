@@ -1,31 +1,49 @@
 <div class="window-container"
-         [style.left.px]="winData().x"
-         [style.top.px]="winData().y"
-         [style.width.px]="winData().width"
-         [style.max-width]="'calc(100% - ' + winData().x + 'px)'"
-         [style.height.px]="winData().height"
-         [style.max-height]="'calc(100% - ' + winData().y + 'px)'"
-         [style.z-index]="winData().zIndex"
-         (mousedown)="bringToFront()"
-         [class.unique]="winData().isUnique"
-         [class.offFocus]="!winData().onFocus"
-         >
+  [style.left.px]="winData().x"
+  [style.top.px]="winData().y"
+  [style.width.px]="winData().width"
+  [style.max-width]="'calc(100% - ' + winData().x + 'px)'"
+  [style.height.px]="winData().height"
+  [style.max-height]="'calc(100% - ' + winData().y + 'px)'"
+  [style.z-index]="winData().zIndex"
+  (mousedown)="bringToFront()"
+  [class.unique]="winData().isUnique"
+  [class.offFocus]="!winData().onFocus">
 
-      <div class="window-header" (mousedown)="startDrag($event)">
-        <span>{{ winData().title }}</span>
-        <div class="window-actions">
-          <button (click)="minimize()">MIN</button>
+  @if (!winData().onFocus) {
+    <div class="window-header">
+    <span>{{ winData().title }}</span>
+    <div class="window-actions">
+      <button >MIN</button>
 
-          @if (winData().isMaximized) {
-            <button (click)="restore()">RES</button>
-          } @else {
-            <button (click)="maximize()">MAX</button>
-          }
-          <button (click)="close()">X</button>
-        </div>
-      </div>
-
-      <div class="window-content">
-        <ng-content></ng-content>
-      </div>
+      @if (winData().isMaximized) {
+      <button >RES</button>
+      } @else {
+      <button >MAX</button>
+      }
+      <button >X</button>
     </div>
+  </div>
+
+  <div class="window-content">
+    <ng-content></ng-content>
+  </div>
+  }
+  <div class="window-header" (mousedown)="startDrag($event)">
+    <span>{{ winData().title }}</span>
+    <div class="window-actions">
+      <button (click)="minimize()">MIN</button>
+
+      @if (winData().isMaximized) {
+      <button (click)="restore()">RES</button>
+      } @else {
+      <button (click)="maximize()">MAX</button>
+      }
+      <button (click)="close()">X</button>
+    </div>
+  </div>
+
+  <div class="window-content">
+    <ng-content></ng-content>
+  </div>
+</div>

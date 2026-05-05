@@ -92,6 +92,8 @@ export class OsWindow implements OnInit, OnDestroy{
 
   @HostListener('document:mouseup')
   onMouseUp() {
+    console.log('aaa');
+
     this.isDragging = false
   }
 
