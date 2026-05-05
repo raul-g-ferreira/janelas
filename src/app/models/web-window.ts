@@ -12,5 +12,6 @@ export interface WebWindow {
   zIndex: number,
   isUnique: boolean,
   isVisible: boolean,
-  isMaximized: boolean
+  isMaximized: boolean,
+  onFocus: boolean
 }

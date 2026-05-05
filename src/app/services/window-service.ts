@@ -31,19 +31,23 @@ export class WindowService {
       previousY: 0,
       previousWidth: 0,
       previousHeight: 0,
-      zIndex: ++this.zIndexCounter,
+      zIndex: 0,
       isUnique: isUnique,
       isVisible: true,
-      isMaximized: false
+      isMaximized: false,
+      onFocus: false
     }
-
-
     this.windows.update(w => [...w, newWindow])
+    this.focusWindow(newWindow.id)
   }
 
   focusWindow(id: string) {
     this.windows.update(wins => wins.map(w =>
-      w.id === id ? { ...w, zIndex: ++this.zIndexCounter} : w
+      w.id === id ? {
+        ...w,
+        zIndex: ++this.zIndexCounter,
+        onFocus: true
+      } : {...w, onFocus: false}
     ))
   }
 
@@ -53,12 +57,12 @@ export class WindowService {
 
   updateWindowPosition(id: string, newX: number, newY: number) {
     this.windows.update(wins => wins.map(w =>
-      w.id === id ? {...w, x: newX, y: newY} : w
+      w.id === id ? { ...w, x: newX, y: newY } : w
     ))
     this.setPreviousStats(id)
   }
 
-  updateWindowSize(id: string, newWidth: number, newHeight:number) {
+  updateWindowSize(id: string, newWidth: number, newHeight: number) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
@@ -79,11 +83,11 @@ export class WindowService {
         width: window.innerWidth - 100, // BORDA BORDER
         height: window.innerHeight,
         isMaximized: true
-       } : w
+      } : w
     ))
   }
 
-  restoreWindow(id:string) {
+  restoreWindow(id: string) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
@@ -112,7 +116,7 @@ export class WindowService {
       } : w
     ))
 
-    this.icons.update(ico => [...ico, newIcon] )
+    this.icons.update(ico => [...ico, newIcon])
   }
 
   removeIcon(id: string) {
@@ -126,8 +130,8 @@ export class WindowService {
         previousX: w.x,
         previousY: w.y,
         previousWidth: w.width,
-        previousHeight:w.height,
-       } : w
+        previousHeight: w.height,
+      } : w
     ))
   }
 }
