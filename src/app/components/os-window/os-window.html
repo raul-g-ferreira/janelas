@@ -1,7 +1,7 @@
 <div class="window-container"
   [style.transform]="'translate(' + winData().x + 'px, ' + winData().y +'px)'"
   [style.width.px]="winData().width"
-  [style.max-width]="'calc(100% - ' + winData().x + 'px)'"
+  [style.max-width]="'calc(100% - ' + winData().x + 'px - 100px)'"
   [style.height.px]="winData().height"
   [style.max-height]="'calc(100% - ' + winData().y + 'px)'"
   [style.z-index]="winData().zIndex"

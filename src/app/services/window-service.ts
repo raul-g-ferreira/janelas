@@ -80,7 +80,7 @@ export class WindowService {
         ...w,
         x: 0,
         y: 0,
-        width: window.innerWidth,
+        width: window.innerWidth - 100,
         height: window.innerHeight,
         isMaximized: true
       } : w
