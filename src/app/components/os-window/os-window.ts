@@ -68,16 +68,15 @@ export class OsWindow implements OnInit, OnDestroy{
     this.dragOffsetY = event.clientY - this.winData().y
 
     event.preventDefault()
+    document.addEventListener('mousemove', this.onMouseMove)
+    document.addEventListener('mouseup', this.onMouseUp)
   }
 
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent) {
+  public onMouseMove = (event: MouseEvent) => {
     if(!this.isDragging) return
 
     let newX = event.clientX - this.dragOffsetX
     let newY = event.clientY - this.dragOffsetY
-
-    // const desktop = document.querySelector<HTMLElement>('.desktop')
 
     const minX = 100
     const maxX = window.innerWidth - this.winData().width
@@ -90,11 +89,11 @@ export class OsWindow implements OnInit, OnDestroy{
     this.windowService.updateWindowPosition(this.winData().id, newX, newY)
   }
 
-  @HostListener('document:mouseup')
-  onMouseUp() {
-    console.log('aaa');
-
+  public onMouseUp = () => {
     this.isDragging = false
+
+    document.removeEventListener('mousemove', this.onMouseMove)
+    document.removeEventListener('mouseup', this.onMouseUp)
   }
 
   resize(newWidth: number, newHeight: number) {
