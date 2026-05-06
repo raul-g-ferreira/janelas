@@ -16,14 +16,14 @@
     <div class="window-header">
     <span>{{ winData().title }}</span>
     <div class="window-actions">
-      <button >MIN</button>
+      <button class="btn" >MIN</button>
 
       @if (winData().isMaximized) {
-      <button >RES</button>
+      <button class="btn" >RES</button>
       } @else {
-      <button >MAX</button>
+      <button class="btn" >MAX</button>
       }
-      <button >X</button>
+      <button class="btn" >X</button>
     </div>
   </div>
 
@@ -34,14 +34,14 @@
   <div class="window-header" (mousedown)="startDrag($event)">
     <span>{{ winData().title }}</span>
     <div class="window-actions">
-      <button (click)="minimize()">MIN</button>
+      <button class="btn" (click)="minimize()">MIN</button>
 
       @if (winData().isMaximized) {
-      <button (click)="restore()">RES</button>
+      <button class="btn" (click)="restore()">RES</button>
       } @else {
-      <button (click)="maximize()">MAX</button>
+      <button class="btn" (click)="maximize()">MAX</button>
       }
-      <button (click)="close()">X</button>
+      <button class="btn" (click)="close()">X</button>
     </div>
   </div>
 

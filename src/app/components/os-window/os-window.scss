@@ -5,7 +5,7 @@
   flex-direction: column;
   overflow: auto;
   min-height: 100px;
-  min-width: 200px;
+  min-width: 230px;
 }
 
 .window-header {
@@ -20,6 +20,12 @@
   &:hover {
     cursor: move;
   }
+}
+
+.window-actions .btn {
+  padding: 0 10px;
+  background: #ffffff20;
+  color: #ccc;
 }
 
 .window-content {
