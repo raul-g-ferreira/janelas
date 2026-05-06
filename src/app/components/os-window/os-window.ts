@@ -1,5 +1,4 @@
-import { Desktop } from './../desktop/desktop';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WebWindow } from '../../models/web-window';
 import { WindowService } from './../../services/window-service';
 
@@ -12,7 +11,6 @@ import { WindowService } from './../../services/window-service';
 })
 export class OsWindow implements OnInit, OnDestroy{
   winData = input.required<WebWindow>()
-  windowService = inject(WindowService)
 
   private isDragging = false
   private dragOffsetX = 0
@@ -23,6 +21,7 @@ export class OsWindow implements OnInit, OnDestroy{
   constructor(
     private elementRef: ElementRef,
     private ngZone: NgZone,
+    public windowService: WindowService
   ) {}
 
   private resizeObserver!: ResizeObserver;
@@ -34,7 +33,6 @@ export class OsWindow implements OnInit, OnDestroy{
         this.resize(entry.contentRect.width, entry.contentRect.height)
       })
     })
-
     this.resizeObserver.observe(this.elementRef.nativeElement.querySelector('.window-container'))
   }
 

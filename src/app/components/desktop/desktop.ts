@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { WindowService } from '../../services/window-service';
 import { OsWindow } from '../os-window/os-window';
 
@@ -9,5 +9,7 @@ import { OsWindow } from '../os-window/os-window';
   styleUrl: './desktop.scss',
 })
 export class Desktop {
-  windowService = inject(WindowService)
+  constructor (
+    public windowService: WindowService
+  ) {}
 }

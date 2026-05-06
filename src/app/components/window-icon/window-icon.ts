@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { WindowMiniIcon } from '../../models/window-mini-icon';
 import { WindowService } from '../../services/window-service';
 
@@ -10,5 +10,7 @@ import { WindowService } from '../../services/window-service';
 })
 export class WindowIcon {
   iconData = input.required<WindowMiniIcon>()
-  windowService = inject(WindowService)
+  constructor (
+    public windowService: WindowService
+  ) {}
 }

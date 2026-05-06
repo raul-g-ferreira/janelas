@@ -12,7 +12,6 @@ export class WindowService {
   private zIndexCounter = 1000
 
   openWindow(title: string, isUnique: boolean) {
-
     if (isUnique) {
       const uniqueWindow = this.windows().filter(w => w.isUnique)[0]
       if (uniqueWindow) {
@@ -20,6 +19,7 @@ export class WindowService {
         return
       }
     }
+
     const newWindow = {
       id: crypto.randomUUID(),
       title: title,
@@ -37,6 +37,7 @@ export class WindowService {
       isMaximized: false,
       onFocus: false
     }
+    
     this.windows.update(w => [...w, newWindow])
     this.focusWindow(newWindow.id)
   }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { WindowService } from '../../services/window-service';
 import { WindowIcon } from '../window-icon/window-icon';
 
@@ -9,5 +9,7 @@ import { WindowIcon } from '../window-icon/window-icon';
   styleUrl: './task-bar.scss',
 })
 export class TaskBar {
-  windowService = inject(WindowService)
+  constructor (
+    public windowService: WindowService
+  ) {}
 }
