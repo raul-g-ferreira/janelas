@@ -1,7 +1,11 @@
 <div class="task-bar-container">
   <div class="task-bar-actions">
-    <button (click)="windowService.openWindow('MULTIPLE', false)">New</button>
-    <button (click)="windowService.openWindow('UNIQUE', true)">Config</button>
+    <button (click)="windowService.openWindow('MULTIPLE', false)">
+      <i class="material-symbols-outlined">add</i>
+    </button>
+    <button (click)="windowService.openWindow('UNIQUE', true)">
+      <i class="material-symbols-outlined">settings</i>
+    </button>
     <hr>
   </div>
   <div class="opened-windows">

@@ -15,14 +15,22 @@
     <div class="window-header">
     <span>{{ winData().title }}</span>
     <div class="window-actions">
-      <button class="btn" >MIN</button>
+      <button class="btn" >
+          <i class="material-symbols-outlined">minimize</i>
+      </button>
 
       @if (winData().isMaximized) {
-      <button class="btn" >RES</button>
+      <button class="btn" >
+          <i class="material-symbols-outlined">fullscreen_exit</i>
+      </button>
       } @else {
-      <button class="btn" >MAX</button>
+      <button class="btn" >
+          <i class="material-symbols-outlined">fullscreen</i>
+      </button>
       }
-      <button class="btn" >X</button>
+      <button class="btn" >
+          <i class="material-symbols-outlined">close</i>
+      </button>
     </div>
   </div>
 
@@ -33,14 +41,22 @@
     <div class="window-header" (mousedown)="startDrag($event)">
       <span>{{ winData().title }}</span>
       <div class="window-actions">
-        <button class="btn" (click)="minimize()">MIN</button>
+        <button class="btn" (click)="minimize()">
+          <i class="material-symbols-outlined">minimize</i>
+        </button>
 
         @if (winData().isMaximized) {
-          <button class="btn" (click)="restore()">RES</button>
+          <button class="btn" (click)="restore()">
+          <i class="material-symbols-outlined">fullscreen_exit</i>
+          </button>
         } @else {
-          <button class="btn" (click)="maximize()">MAX</button>
+          <button class="btn" (click)="maximize()">
+          <i class="material-symbols-outlined">fullscreen</i>
+          </button>
         }
-        <button class="btn btn-remove" (click)="close()">X</button>
+        <button class="btn btn-remove" (click)="close()">
+          <i class="material-symbols-outlined">close</i>
+        </button>
       </div>
     </div>
     <div class="window-content">
