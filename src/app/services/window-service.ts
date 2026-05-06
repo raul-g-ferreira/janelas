@@ -23,10 +23,10 @@ export class WindowService {
     const newWindow = {
       id: crypto.randomUUID(),
       title: title,
-      x: 500 + Math.random() * 100,
-      y: 300 + Math.random() * 100,
-      width: 800,
-      height: 400,
+      x: 5 + Math.random() * 50,
+      y: 10 + Math.random() * 50,
+      width: 300,
+      height: 150,
       previousX: 0,
       previousY: 0,
       previousWidth: 0,
@@ -80,7 +80,7 @@ export class WindowService {
         ...w,
         x: 0,
         y: 0,
-        width: window.innerWidth - 100,
+        width: window.innerWidth - (window.innerWidth * 0.1),
         height: window.innerHeight,
         isMaximized: true
       } : w
