@@ -18,6 +18,7 @@ export class OsWindow implements OnInit, OnDestroy{
   private dragOffsetX = 0
   private dragOffsetY = 0
 
+  private ticking = false
 
   constructor(
     private elementRef: ElementRef,
@@ -76,18 +77,26 @@ export class OsWindow implements OnInit, OnDestroy{
   public onMouseMove = (event: MouseEvent) => {
     if(!this.isDragging) return
 
-    let newX = event.clientX - this.dragOffsetX
-    let newY = event.clientY - this.dragOffsetY
+    if(!this.ticking) {
+      window.requestAnimationFrame(() => {
 
-    const minX = 0
-    const maxX = window.innerWidth - this.winData().width - (0.1 * window.innerWidth) // 10vw
-    const minY = 0
-    const maxY = window.innerHeight - this.winData().height
+        let newX = event.clientX - this.dragOffsetX
+        let newY = event.clientY - this.dragOffsetY
 
-    newX = Math.max(minX, Math.min(maxX, newX))
-    newY = Math.max(minY, Math.min(maxY, newY))
+        const minX = 0
+        const maxX = window.innerWidth - this.winData().width - (0.1 * window.innerWidth) // 10vw
+        const minY = 0
+        const maxY = window.innerHeight - this.winData().height
 
-    this.windowService.updateWindowPosition(this.winData().id, newX, newY)
+        newX = Math.max(minX, Math.min(maxX, newX))
+        newY = Math.max(minY, Math.min(maxY, newY))
+
+        this.windowService.updateWindowPosition(this.winData().id, newX, newY)
+
+        this.ticking = false
+      })
+      this.ticking = true
+    }
   }
 
   public onMouseUp = () => {
