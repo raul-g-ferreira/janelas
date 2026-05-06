@@ -78,9 +78,9 @@ export class WindowService {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
-        x: 100,
+        x: 0,
         y: 0,
-        width: window.innerWidth - 100,
+        width: window.innerWidth,
         height: window.innerHeight,
         isMaximized: true
       } : w

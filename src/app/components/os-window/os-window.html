@@ -1,6 +1,5 @@
 <div class="window-container"
-  [style.left.px]="winData().x"
-  [style.top.px]="winData().y"
+  [style.transform]="'translate(' + winData().x + 'px, ' + winData().y +'px)'"
   [style.width.px]="winData().width"
   [style.max-width]="'calc(100% - ' + winData().x + 'px)'"
   [style.height.px]="winData().height"

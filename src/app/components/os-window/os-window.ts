@@ -78,8 +78,8 @@ export class OsWindow implements OnInit, OnDestroy{
     let newX = event.clientX - this.dragOffsetX
     let newY = event.clientY - this.dragOffsetY
 
-    const minX = 100
-    const maxX = window.innerWidth - this.winData().width
+    const minX = 0
+    const maxX = window.innerWidth - this.winData().width - 100
     const minY = 0
     const maxY = window.innerHeight - this.winData().height
 
