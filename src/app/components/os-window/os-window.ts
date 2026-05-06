@@ -1,5 +1,5 @@
 import { Desktop } from './../desktop/desktop';
-import { Component, ElementRef, HostListener, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WebWindow } from '../../models/web-window';
 import { WindowService } from './../../services/window-service';
 
@@ -8,6 +8,7 @@ import { WindowService } from './../../services/window-service';
   imports: [],
   templateUrl: './os-window.html',
   styleUrl: './os-window.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OsWindow implements OnInit, OnDestroy{
   winData = input.required<WebWindow>()
