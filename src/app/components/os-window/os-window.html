@@ -12,7 +12,6 @@
   >
 
   @if (!winData().onFocus) {
-    <span style="display: none">{{ checkTemplate }}</span>
     <div class="window-header">
     <span>{{ winData().title }}</span>
     <div class="window-actions">
@@ -39,7 +38,6 @@
     <ng-content></ng-content>
   </div>
   } @else {
-    <span style="display: none">{{ checkTemplate }}</span>
     <div class="window-header" (mousedown)="startDrag($event)">
       <span>{{ winData().title }}</span>
       <div class="window-actions">

@@ -40,12 +40,6 @@ export class OsWindow implements OnInit, OnDestroy{
     this.resizeObserver.disconnect()
   }
 
-
-  get checkTemplate() {
-    console.log(`Renderizou o HTML da janela: ${this.winData().title}`);
-    return '';
-  }
-
   bringToFront() {
     this.windowService.focusWindow(this.winData().id)
   }
@@ -75,14 +69,12 @@ export class OsWindow implements OnInit, OnDestroy{
     event.preventDefault()
 
     this.ngZone.runOutsideAngular(() => {
-      console.log('Drag started - Adding listeners');
       document.addEventListener('mousemove', this.onMouseMove)
       document.addEventListener('mouseup', this.onMouseUp)
     })
   }
 
   public onMouseMove = (event: MouseEvent) => {
-    console.log('In Zone?', NgZone.isInAngularZone())
     if(!this.isDragging) return
 
     if(!this.ticking) {
@@ -109,7 +101,6 @@ export class OsWindow implements OnInit, OnDestroy{
 
   public onMouseUp = () => {
     this.isDragging = false
-    console.log('Drag ended - Removing listeners');
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
   }

@@ -3,4 +3,28 @@ html, body {
   margin: 0;
   padding: 0;
   color: #ccc;
+
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
 }
