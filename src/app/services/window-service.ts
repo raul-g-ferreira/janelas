@@ -28,10 +28,6 @@ export class WindowService {
       y: 10 + Math.random() * 50,
       width: 300,
       height: 150,
-      previousX: 0,
-      previousY: 0,
-      previousWidth: 0,
-      previousHeight: 0,
       zIndex: 0,
       isUnique: isUnique,
       isVisible: true,
@@ -73,7 +69,6 @@ export class WindowService {
   }
 
   maximizeWindow(id: string) {
-    this.setPreviousStats(id)
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
@@ -104,7 +99,6 @@ export class WindowService {
   }
 
   minimizeWindow(id: string) {
-    this.setPreviousStats(id)
     const newIcon = {
       id: id
     }
@@ -121,18 +115,5 @@ export class WindowService {
 
   removeIcon(id: string) {
     this.icons.update(ico => ico.filter(i => i.id !== id))
-  }
-
-  setPreviousStats(id: string) {
-    this.windows.update(wins => wins.map(w =>
-      w.id === id ? {
-        ...w,
-        ...w,
-        previousX: w.x,
-        previousY: w.y,
-        previousWidth: w.width,
-        previousHeight: w.height,
-      } : w
-    ))
   }
 }
