@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WebWindow } from '../../models/web-window';
 import { WindowService } from './../../services/window-service';
 
@@ -28,16 +28,22 @@ export class OsWindow implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.resizeObserver = new ResizeObserver(entries => {
-      this.ngZone.run(() => {
         const entry = entries[0]
         this.resize(entry.contentRect.width, entry.contentRect.height)
-      })
     })
-    this.resizeObserver.observe(this.elementRef.nativeElement.querySelector('.window-container'))
+    this.ngZone.runOutsideAngular(() => {
+      this.resizeObserver.observe(this.elementRef.nativeElement.querySelector('.window-container'))
+    })
   }
 
   ngOnDestroy(): void {
     this.resizeObserver.disconnect()
+  }
+
+
+  get checkTemplate() {
+    console.log(`Renderizou o HTML da janela: ${this.winData().title}`);
+    return '';
   }
 
   bringToFront() {
@@ -61,18 +67,22 @@ export class OsWindow implements OnInit, OnDestroy{
   }
 
   startDrag(event: MouseEvent) {
-    this.bringToFront()
     this.isDragging = true
 
     this.dragOffsetX = event.clientX - this.winData().x
     this.dragOffsetY = event.clientY - this.winData().y
 
     event.preventDefault()
-    document.addEventListener('mousemove', this.onMouseMove)
-    document.addEventListener('mouseup', this.onMouseUp)
+
+    this.ngZone.runOutsideAngular(() => {
+      console.log('Drag started - Adding listeners');
+      document.addEventListener('mousemove', this.onMouseMove)
+      document.addEventListener('mouseup', this.onMouseUp)
+    })
   }
 
   public onMouseMove = (event: MouseEvent) => {
+    console.log('In Zone?', NgZone.isInAngularZone())
     if(!this.isDragging) return
 
     if(!this.ticking) {
@@ -89,7 +99,7 @@ export class OsWindow implements OnInit, OnDestroy{
         newX = Math.max(minX, Math.min(maxX, newX))
         newY = Math.max(minY, Math.min(maxY, newY))
 
-        this.windowService.updateWindowPosition(this.winData().id, newX, newY)
+        this.ngZone.run(() => this.windowService.updateWindow(this.winData().id, newX, newY, this.winData().width, this.winData().height))
 
         this.ticking = false
       })
@@ -99,14 +109,16 @@ export class OsWindow implements OnInit, OnDestroy{
 
   public onMouseUp = () => {
     this.isDragging = false
-
+    console.log('Drag ended - Removing listeners');
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
   }
 
   resize(newWidth: number, newHeight: number) {
     if (!this.winData().isMaximized) {
-      this.windowService.updateWindowSize(this.winData().id, newWidth, newHeight)
+      this.ngZone.run(() => {
+        this.windowService.updateWindow(this.winData().id, this.winData().x, this.winData().y, newWidth, newHeight)
+      })
     }
   }
 }

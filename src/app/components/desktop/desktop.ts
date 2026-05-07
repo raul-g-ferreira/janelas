@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { WindowService } from '../../services/window-service';
 import { OsWindow } from '../os-window/os-window';
 
@@ -7,6 +7,8 @@ import { OsWindow } from '../os-window/os-window';
   imports: [OsWindow],
   templateUrl: './desktop.html',
   styleUrl: './desktop.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class Desktop {
   constructor (

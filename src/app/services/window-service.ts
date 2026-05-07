@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { WebWindow } from '../models/web-window';
 import { WindowMiniIcon } from '../models/window-mini-icon';
+import { X } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root',
@@ -37,18 +38,21 @@ export class WindowService {
       isMaximized: false,
       onFocus: false
     }
-    
+
     this.windows.update(w => [...w, newWindow])
     this.focusWindow(newWindow.id)
   }
 
   focusWindow(id: string) {
-    this.windows.update(wins => wins.map(w =>
-      w.id === id ? {
-        ...w,
-        zIndex: ++this.zIndexCounter,
-        onFocus: true
-      } : {...w, onFocus: false}
+    this.windows.update(wins => wins.map(w => {
+      if(w.id === id ) {
+        return {...w, zIndex: ++this.zIndexCounter, onFocus: true}
+      }
+      if (w.onFocus) {
+        return { ...w, onFocus: false}
+      }
+      return w
+    }
     ))
   }
 
@@ -56,22 +60,16 @@ export class WindowService {
     this.windows.update(wins => wins.filter(w => w.id !== id))
   }
 
-  updateWindowPosition(id: string, newX: number, newY: number) {
-    this.windows.update(wins => wins.map(w =>
-      w.id === id ? { ...w, x: newX, y: newY } : w
-    ))
-    this.setPreviousStats(id)
-  }
-
-  updateWindowSize(id: string, newWidth: number, newHeight: number) {
+  updateWindow(id: string, newX: number, newY: number, newWidth: number, newHeight: number) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
+        x: newX,
+        y: newY,
         width: newWidth,
         height: newHeight,
       } : w
     ))
-    this.setPreviousStats(id)
   }
 
   maximizeWindow(id: string) {
@@ -127,6 +125,7 @@ export class WindowService {
   setPreviousStats(id: string) {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
+        ...w,
         ...w,
         previousX: w.x,
         previousY: w.y,

@@ -1,5 +1,5 @@
 <div class="window-container"
-  [style.transform]="'translate(' + winData().x + 'px, ' + winData().y +'px)'"
+  [style.transform]="'translate3d(' + winData().x + 'px, ' + winData().y +'px, 0)'"
   [style.width.px]="winData().width"
   [style.max-width]="'calc(100% - ' + winData().x + 'px - 10vw)'"
   [style.height.px]="winData().height"
@@ -12,6 +12,7 @@
   >
 
   @if (!winData().onFocus) {
+    <span style="display: none">{{ checkTemplate }}</span>
     <div class="window-header">
     <span>{{ winData().title }}</span>
     <div class="window-actions">
@@ -38,6 +39,7 @@
     <ng-content></ng-content>
   </div>
   } @else {
+    <span style="display: none">{{ checkTemplate }}</span>
     <div class="window-header" (mousedown)="startDrag($event)">
       <span>{{ winData().title }}</span>
       <div class="window-actions">
