@@ -77,10 +77,6 @@ export class WindowService {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
-        x: 0,
-        y: 0,
-        width: window.innerWidth - (window.innerWidth * 0.1),
-        height: window.innerHeight,
         isMaximized: true
       } : w
     ))
@@ -90,15 +86,20 @@ export class WindowService {
     this.windows.update(wins => wins.map(w =>
       w.id === id ? {
         ...w,
-        x: w.previousX,
-        y: w.previousY,
-        width: w.previousWidth,
-        height: w.previousHeight,
-        isMaximized: false,
         isVisible: true
       } : w
     ))
     this.removeIcon(id)
+    this.focusWindow(id)
+  }
+
+  restoreMaximizedWindow(id: string) {
+    this.windows.update(wins => wins.map(w =>
+      w.id === id ? {
+        ...w,
+        isMaximized: false,
+      } : w
+    ))
     this.focusWindow(id)
   }
 

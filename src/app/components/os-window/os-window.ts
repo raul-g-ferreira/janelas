@@ -57,7 +57,11 @@ export class OsWindow implements OnInit, OnDestroy{
   }
 
   restore() {
-    this.windowService.restoreWindow(this.winData().id)
+    if(this.winData().isMaximized) {
+      this.windowService.restoreMaximizedWindow(this.winData().id)
+    } else {
+      this.windowService.restoreWindow(this.winData().id)
+    }
   }
 
   startDrag(event: MouseEvent) {
