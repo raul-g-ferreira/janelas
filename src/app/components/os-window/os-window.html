@@ -1,15 +1,14 @@
 <div class="window-container"
-  [style.transform]="'translate3d(' + (winData().isMaximized ? '0' : winData().x) + 'px, ' + (winData().isMaximized ? '0' : winData().y) +'px, 0)'"
-  [style.width]="winData().isMaximized ? '100%' : winData().width + 'px'"
-  [style.max-width]="'calc(100% - ' + (winData().isMaximized ? '0' : winData().x) + 'px - 10vw)'"
-  [style.height]="winData().isMaximized ? '100%' : winData().height + 'px'"
-  [style.max-height]="'calc(100% - ' + (winData().isMaximized ? '0' : winData().y) + 'px)'"
-  [style.z-index]="winData().zIndex"
-  [style.resize]="winData().isMaximized ? 'none' : 'both'"
+  [style.transform]="transformStyle()"
+  [style.width]="windowWidth()"
+  [style.max-width]="windowMaxWidth()"
+  [style.height]="windowHeight()"
+  [style.max-height]="windowMaxHeight()"
+  [style.z-index]="windowZIndex()"
+  [style.resize]="windowResize()"
   (mousedown)="bringToFront()"
   [class.unique]="winData().isUnique"
-  [class.offFocus]="!winData().onFocus"
-  >
+  [class.offFocus]="!winData().onFocus">
 
   @if (!winData().onFocus) {
     <div class="window-header">

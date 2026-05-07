@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DoCheck, ElementRef, input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WebWindow } from '../../models/web-window';
 import { WindowService } from './../../services/window-service';
 
@@ -116,4 +116,22 @@ export class OsWindow implements OnInit, OnDestroy{
       })
     }
   }
+
+  public transformStyle = computed(() => {
+    const data = this.winData()
+    if (data.isMaximized) {
+      return 'translate3d(0px, 0px, 0)'
+    }
+    return `translate3d(${data.x}px , ${data.y}px, 0)`
+  })
+
+  windowWidth = computed(() => { return this.winData().isMaximized ? '100%' : `${this.winData().width}px`})
+  windowHeight = computed(() => { return this.winData().isMaximized ? '100%' : `${this.winData().height}px`})
+
+  windowMaxWidth = computed(() => { return `calc(100% - ${(this.winData().isMaximized ? '0' : this.winData().x)}px - 10vw)`})
+  windowMaxHeight = computed(() => { return `calc(100% - ${(this.winData().isMaximized ? '0' : this.winData().y)}px)`})
+
+  windowZIndex = computed(() => { return this.winData().zIndex })
+
+  windowResize = computed(() => { return this.winData().isMaximized ? 'none' : 'both'})
 }

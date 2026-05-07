@@ -1,7 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { WebWindow } from '../models/web-window';
 import { WindowMiniIcon } from '../models/window-mini-icon';
-import { X } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root',
